@@ -1,5 +1,7 @@
 package io.pivotal.pal.tracker;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,11 +16,14 @@ import java.util.List;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 
 public class JdbcTimeEntryRepository implements TimeEntryRepository {
+    private static final Logger logger = LoggerFactory.getLogger(JdbcTimeEntryRepository.class);
 
     private final JdbcTemplate jdbcTemplate;
 
     public JdbcTimeEntryRepository(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
+
+        logger.info("datasource {}", dataSource.toString());
     }
 
     @Override
